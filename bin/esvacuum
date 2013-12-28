@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'esvacuum'
+puts es-vacuum.execute(ARGV[0])
