@@ -25,12 +25,11 @@ Via a Gemfile, use:
 
 At present, the gem supports four arguments which must be passed in as a hash.  A little further down you can see an execution of the gem using IRB.
 
-Arguments   Description
------------ --------------------------------------------------------
-source      **REQUIRED** This is the URL for the source server.
-destination **REQUIRED** This is the URL for the destination server.
-size        *Default: 100* This is the chunk size for the operation.
-verbose     *Default: false* Output progress.
+### Arguments & Description
+* source      **REQUIRED** This is the URL for the source server.
+* destination **REQUIRED** This is the URL for the destination server.
+* size        *Default: 100* This is the chunk size for the operation.
+* verbose     *Default: false* Output progress.
 
     $ irb
     1.9.3p448 :001 > require 'esvacuum'
@@ -54,7 +53,7 @@ verbose     *Default: false* Output progress.
 Note: Use of the script means that verbose output is always enabled.  If the gem is leveraged directly verbose output is automatically suppressed.
 
 
-### An example exeuction.
+### An example exection.
 
     $ esvacuum -s localhost:9200 -d localhost:9201
     Processing Index: userprofiles
