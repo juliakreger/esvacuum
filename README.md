@@ -31,12 +31,15 @@ At present, the gem supports four arguments which must be passed in as a hash.  
 * size        *Default: 100* This is the chunk size for the operation.
 * verbose     *Default: false* Output progress.
 
+### Via irb
+
     $ irb
     1.9.3p448 :001 > require 'esvacuum'
      => true 
     1.9.3p448 :002 > Esvacuum.execute source: 'localhost:9200', destination: 'localhost:9201', size: 100, verbose: false
      => nil 
-    1.9.3p448 :003 >
+    1.9.3p448 :003 > exit
+    $
 
 ## Usage via the esvacuum script
 
