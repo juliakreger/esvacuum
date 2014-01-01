@@ -16,7 +16,10 @@ module Esvacuum
   # @option arguments [Number] :size A chunk size in which to drive the operation for tuning effiency.
   #                                  (default: 100)
   # @option arguments [Boolean] :verbose Verbose output.  (default: false)
+  # @option arguments [String] :newindexname A string if defined that is used to replace the target document index.
+  # @option arguments [String] :newtypename A string if defined that is used to replace the target document type.
   #
+
   def self.execute( arguments={} )
     if arguments[:source].nil?
       raise "Requires a source to be defined"

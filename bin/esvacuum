@@ -18,6 +18,12 @@ opt_parser = OptionParser.new do |opt|
   opt.on("-c","--chunksize 100","Optional chunk size") do |size|
     options[:size] = size
   end
+  opt.on("","--destindex STRING","Optional new index name") do |newindexname|
+    options[:newindexname] = newindexname
+  end
+  opt.on("","--desttype STRING","Optional new type name") do |newtypename|
+    options[:newtypename] = newtypename
+  end
   opt.on("-h","--help","help") do
     puts opt_parser
   end

@@ -16,7 +16,7 @@ module Esvacuum
       arguments[:modifyindex] = true if !arguments[:newtypename].nil?
 
       dataBlock = Array.new 
-      if arguments[:modifyindex] == false       
+      if arguments[:modifyindex] == false
         records.each do | record |
           tempHash = Hash.new
           tempHash = { "index" => { "_index" => record["_index"], "_type" => record["_type"], "_id" => record["_id"], "data" => record["_source"] }} 

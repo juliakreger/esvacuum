@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "Gem for bulk record copy operations"
   s.authors     = ["Julia Kreger"]
   s.email       = 'jkreger@gmail.com'
-  s.files       = ["lib/esvacuum.rb"]
+  s.files       = ["lib/esvacuum.rb","lib/esvacuum/modifydocuments.rb"]
   s.homepage    =
     ''
   s.license       = 'MIT'
