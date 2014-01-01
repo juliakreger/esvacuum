@@ -1,9 +1,9 @@
 require 'elasticsearch'
 require 'json'
 require 'time'
-
+require 'esvacuum/modifydocuments'
 # The main call for es-vacuum
-class Esvacuum
+module Esvacuum
 
   # This is intended to forklift one Elasticsearch server's data to another Elasticsearch server.
   #
@@ -71,13 +71,9 @@ class Esvacuum
         dataBlock = Array.new
         records = sourceSearchResponse['hits']['hits']
 
-        records.each do | record |
-          tempHash = Hash.new
-          tempHash = { "index" => { "_index" => record["_index"], "_type" => record["_type"], "_id" => record["_id"], "data" => record["_source"] }}
-          dataBlock << tempHash
-          recordcount += 1
-        end
-
+        dataBlock = Esvacuum::Modifydocuments.execute arguments, records
+          
+        recordcount += dataBlock.size
         targetClient.bulk body: dataBlock,
                           consistency: "one",
                           refresh: false
