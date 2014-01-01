@@ -24,6 +24,9 @@ opt_parser = OptionParser.new do |opt|
   opt.on("","--desttype STRING","Optional new type name") do |newtypename|
     options[:newtypename] = newtypename
   end
+  opt.on("-i","--sourceindex STRING","Optional flag to only copy the defined index.") do |sourceindex|
+    options[:sourceindex] = sourceindex
+  end
   opt.on("-h","--help","help") do
     puts opt_parser
   end
