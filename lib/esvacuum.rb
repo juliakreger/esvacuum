@@ -12,7 +12,8 @@ module Esvacuum
   #     esvacuum.execute source: 'localhost:9200', destination: 'remotehost:9200'
   #
   # @option arguments [String] :source A Hostname, Hostname and Port, or URL for a source ES Server.
-  # @option arguments [String] :destination A File or URL for a target ES Server.
+  # @option arguments [String] :destination A Hostname, Hostname and Port, or URL for a target ES Server.
+  #                                         If the name begins with a period or slash, the output is written to a file.
   # @option arguments [Number] :size A chunk size in which to drive the operation for tuning effiency.
   #                                  (default: 100)
   # @option arguments [Boolean] :verbose Verbose output.  (default: false)
@@ -34,10 +35,10 @@ module Esvacuum
     if arguments[:verbose].nil?
       arguments[:verbose] = false 
     end
-    if arguments[:destination] =~ /^http:\/\//
-      arguments[:outputfile] = false
-    else
+    if  arguments[:destination] =~ /^[\/|.\/]/
       arguments[:outputfile] = true
+    else
+      arguments[:outputfile] = false
     end
 
     begin

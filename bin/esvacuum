@@ -12,7 +12,7 @@ opt_parser = OptionParser.new do |opt|
   opt.on("-s","--source srcURL:9200","Required Source URL") do |source|
     options[:source] = source
   end
-  opt.on("-d","--destination destURL:9200","Required Destination URL or File") do |destination|
+  opt.on("-d","--destination destURL:9200","Required Destination URL or File starting with ./ or /") do |destination|
     options[:destination] = destination
   end
   opt.on("-c","--chunksize 100","Optional chunk size") do |size|
