@@ -34,16 +34,29 @@ module Esvacuum
     if arguments[:verbose].nil?
       arguments[:verbose] = false 
     end
+    if arguments[:destination] =~ /^http:\/\//
+      arguments[:file] = false
+    else
+      arguments[:file] = true
+    end
 
     begin
       sourceClient = Elasticsearch::Client.new host: arguments[:source]
     rescue 
       raise "Error connecting to #{arguments[:source]}"
     end
-    begin
-      targetClient = Elasticsearch::Client.new host: arguments[:destination]
-    rescue 
-      raise "Error connecting to #{arguments[:destination]}"  
+    if arguments[:file] == false
+      begin
+        targetClient = Elasticsearch::Client.new host: arguments[:destination]
+      rescue
+        raise "Error opening #{arguments[:destination]}"
+      end
+    else
+      if File.exists?(arguments[:destination]) == false
+        outputFile = File.open(arguments[:destination],"wt")
+      else
+        raise("Error: File exists")
+      end
     end
     if !arguments[:sourceindex].nil?
       indexqueryresponse = Hash.new
@@ -79,10 +92,13 @@ module Esvacuum
         dataBlock = Esvacuum::Modifydocuments.execute arguments, records
           
         recordcount += dataBlock.size
-        targetClient.bulk body: dataBlock,
-                          consistency: "one",
-                          refresh: false
-
+        if arguments[:file] == false
+           targetClient.bulk body: dataBlock,
+                             consistency: "one",
+                             refresh: false
+        else
+          outputFile << Elasticsearch::API::Utils.__bulkify(dataBlock)
+        end
         if arguments[:verbose] == true
           end_time = Time.now
           puts "Records #{(recordcount - 1)} completed in #{(end_time - beginning_time).round(2)} seconds"
@@ -98,8 +114,10 @@ module Esvacuum
       end
 
     end
-
+    if arguments[:file] == true
+      outputFile.close
+    end
     puts "Completed" if arguments[:verbose] == true
-
+    
   end
 end
