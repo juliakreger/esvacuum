@@ -12,7 +12,7 @@ module Esvacuum
   #     esvacuum.execute source: 'localhost:9200', destination: 'remotehost:9200'
   #
   # @option arguments [String] :source A Hostname, Hostname and Port, or URL for a source ES Server.
-  # @option arguments [String] :destination A Hostname, Hostname and Port, or URL for a target ES Server.
+  # @option arguments [String] :destination A File or URL for a target ES Server.
   # @option arguments [Number] :size A chunk size in which to drive the operation for tuning effiency.
   #                                  (default: 100)
   # @option arguments [Boolean] :verbose Verbose output.  (default: false)
@@ -35,9 +35,9 @@ module Esvacuum
       arguments[:verbose] = false 
     end
     if arguments[:destination] =~ /^http:\/\//
-      arguments[:file] = false
+      arguments[:outputfile] = false
     else
-      arguments[:file] = true
+      arguments[:outputfile] = true
     end
 
     begin
@@ -45,7 +45,7 @@ module Esvacuum
     rescue 
       raise "Error connecting to #{arguments[:source]}"
     end
-    if arguments[:file] == false
+    if arguments[:outputfile] == false
       begin
         targetClient = Elasticsearch::Client.new host: arguments[:destination]
       rescue
@@ -92,7 +92,7 @@ module Esvacuum
         dataBlock = Esvacuum::Modifydocuments.execute arguments, records
           
         recordcount += dataBlock.size
-        if arguments[:file] == false
+        if arguments[:outputfile] == false
            targetClient.bulk body: dataBlock,
                              consistency: "one",
                              refresh: false
@@ -114,7 +114,7 @@ module Esvacuum
       end
 
     end
-    if arguments[:file] == true
+    if arguments[:outputfile] == true
       outputFile.close
     end
     puts "Completed" if arguments[:verbose] == true
