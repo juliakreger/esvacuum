@@ -58,7 +58,7 @@ Note: Both source and destination support reading from an absolute (/path/to/fil
 Note: Use of the script means that verbose output is always enabled.  If the gem is leveraged directly verbose output is automatically suppressed.
 
 
-### An example exection.
+### An example execution.
 
     $ esvacuum -s localhost:9200 -d localhost:9201
     Processing Index: userprofiles
