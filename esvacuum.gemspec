@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'esvacuum'
-  s.version     = '0.0.2'
-  s.date        = '2013-12-28'
+  s.version     = '0.0.3'
+  s.date        = '2014-01-05'
   s.executables << 'esvacuum'
   s.summary     = "esvacuum"
   s.description = "Gem for bulk record copy operations"
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = 'jkreger@gmail.com'
   s.files       = ["lib/esvacuum.rb","lib/esvacuum/modifydocuments.rb"]
   s.homepage    =
-    ''
+    'https://github.com/juliakreger/esvacuum'
   s.license       = 'MIT'
 end
 
