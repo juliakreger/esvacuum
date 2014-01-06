@@ -2,7 +2,7 @@ esvacuum
 ========
 
 # Description
-This is a simple ruby gem which facilitates the bulk extraction of one elasticsearch cluster to another.
+This is a simple ruby gem which facilitates the bulk extraction of one elasticsearch cluster to another cluster, or file should you so choose.  I wrote it as a challenge to myself to improve my ruby skills while making something that I knew I could leverage elsewhere.
 
 This gem deploys a script called esvacuum which can be executed, and the gem can be leveraged directly if so desired.
 
@@ -30,6 +30,8 @@ At present, the gem supports four arguments which must be passed in as a hash.  
 * destination **REQUIRED** This is the URL for the destination server.
 * size        *Default: 100* This is the chunk size for the operation.
 * verbose     *Default: false* Output progress.
+
+Note: Both source and destination support reading from an absolute (/path/to/file) or relative (./file|../file).  Reading from a source file means any transformation features are unavailable.
 
 ### Via irb
 
